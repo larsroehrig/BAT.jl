@@ -34,7 +34,9 @@ using ProgressMeter
 using RecipesBase
 using Requires
 using ValueShapes
+using SpecialFunctions
 using StatsBase
+using StatsFuns
 using StructArrays
 using Tables
 using UnsafeArrays
