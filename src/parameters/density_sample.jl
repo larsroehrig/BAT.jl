@@ -63,6 +63,53 @@ function ==(A::DensitySample, B::DensitySample)
 end
 
 
+
+"""
+    varof(s::DensitySample)
+
+Returns the variate of sample `s`, i.e. `s.v`.
+"""
+varof(s::DensitySample) = s.v
+# ToDo: Specialize `varof.(sv::DensitySampleVector)`
+
+
+"""
+    logvalof(s::DensitySample)
+
+Returns the log-density value of sample `s`, i.e. `s.logd`.
+"""
+logvalof(s::DensitySample) = s.logd
+# ToDo: Specialize `logvalof.(sv::DensitySampleVector)`
+
+
+"""
+    weightof(s::DensitySample)
+
+Returns the weight of sample  `s`, i.e. `s.weight`.
+"""
+weightof(s::DensitySample) = s.weight
+# ToDo: Specialize `weightof.(sv::DensitySampleVector)`
+
+
+"""
+    infoof(s::DensitySample)
+
+Returns the provencance information of sample `s`, i.e. `s.info`.
+"""
+infoof(s::DensitySample) = s.info
+# ToDo: Specialize `infoof.(sv::DensitySampleVector)`
+
+
+"""
+    auxof(s::DensitySample)
+
+Returns any auxiliary information attatched to sample `s`, i.e. `s.aux`.
+"""
+auxof(s::DensitySample) = s.aux
+# ToDo: Specialize `auxof.(sv::DensitySampleVector)`
+
+
+
 function Base.similar(s::DensitySample{P,T,W,R,Q}) where {P<:AbstractVector{<:Real},T,W,R,Q}
     v = fill!(similar(s.v), eltype(s.v)(NaN))
     logd = convert(T, NaN)

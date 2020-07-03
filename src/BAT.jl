@@ -66,6 +66,7 @@ import CPUTime
 import HypothesisTests
 
 
+include("retvals/retvals.jl")
 include("utils/utils.jl")
 include("rngs/rngs.jl")
 include("distributions/distributions.jl")

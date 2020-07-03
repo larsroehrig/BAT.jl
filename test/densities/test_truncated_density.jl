@@ -62,7 +62,7 @@ using ArraysOfArrays, Distributions, StatsBase, IntervalSets, ValueShapes
     trunc_pstr = BAT.truncate_density(posterior, bounds)
     @test @inferred(BAT.logvalof(trunc_pstr, [1, 2, 0, 3])) ≈ BAT.logvalof(posterior, [1, 2, 0, 3])
     @test @inferred(BAT.logvalof(trunc_pstr, [-1, -1, -1, -1])) ≈ -Inf
-    @test @inferred(BAT.logvalgradof(trunc_pstr, [1, 2, 0, 3])).grad_logd ≈ BAT.logvalgradof(posterior, [1, 2, 0, 3]).grad_logd
+    @test gradlogof(@inferred(BAT.logvalgradof(trunc_pstr, [1, 2, 0, 3]))) ≈ gradlogof(BAT.logvalgradof(posterior, [1, 2, 0, 3]))
     @test varshape(trunc_pstr) == varshape(posterior)
 
     let

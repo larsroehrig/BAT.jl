@@ -2,7 +2,6 @@
 
 include("abstract_density.jl")
 include("change_of_variables.jl")
-include("density_value.jl")
 include("generic_density.jl")
 include("const_density.jl")
 include("density_product.jl")

@@ -2,19 +2,26 @@
 
 
 """
-    logvalof(d::LogDVal)::Real
+    logvalof(r::NamedTuple{(...,:logd,...)})::Real
+    logvalof(r::LogDVal)::Real
 
-Get the logarithm of density value `d`.
+Extract the log-density value from a result `r`.
 
 Examples:
 
 ```julia
-    logvalof(LogDVal(d)) == d
+logvalof((..., logd = logd, ...)) == logd
+logvalof(LogDVal(logd)) == logd
 ```
 """
+function logvalof end
+export logvalof
+
 function logvalof(d::Real)
     throw(ArgumentError("Can't the a logarithmic value for d, unknown if it represents a lin or log value itself."))
 end
+
+logvalof(r::NamedTuple) = r.logd
 
 
 

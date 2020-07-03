@@ -2,7 +2,7 @@
 
 
 @doc doc"""
-    AbstractDensity
+    AbstractDensity <: Function
 
 Subtypes of `AbstractDensity` must implement the function
 
@@ -24,8 +24,10 @@ Densities with known variate bounds may also implement
     The function `BAT.var_bounds` is not part of the stable public BAT-API,
     it's name and arguments may change without notice.
 """
-abstract type AbstractDensity end
+abstract type AbstractDensity <: Function end
 export AbstractDensity
+
+(d::AbstractDensity)(v::Any) = (logd = logvalof(d, v),)
 
 
 @doc doc"""
@@ -260,13 +262,10 @@ Input:
 * `density`: density function
 * `v`: argument, i.e. variate / parameter-values
 
-Returns a tuple of the log density value and it's gradient.
+Returns a `NamedTuple` of the shape `(logd = logd, gradlogd = gradlogd)`.
 
 Note: This function should *not* be specialized for custom density types!
 """
-function logvalgradof end
-export logvalgradof
-
 function logvalgradof(
     density::AbstractDensity,
     v::Any,
@@ -290,7 +289,7 @@ function logvalgradof(
     gradshape = map_const_shapes(zero, shape)
 
     grad_logd = gradshape(grad_logd_unshaped)
-    (logd = logd, grad_logd = grad_logd)
+    (logd = logd, gradlogd = gradlogd)
 end
 
 

@@ -14,4 +14,12 @@ HierarchicalDensity
 PartitionedSampling
 PriorImportanceSampler
 SobolSampler
+
+auxof
+gradlogof
+infoof
+ladjof
+varof
+weightof
 ```
+

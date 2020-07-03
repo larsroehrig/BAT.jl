@@ -51,7 +51,6 @@ AHMC
 AHMIntegration
 ARPWeighting
 AbstractDensity
-AbstractDensityValue
 AbstractMCMCTuningStrategy
 AbstractPosteriorDensity
 AbstractWeightingScheme
@@ -70,7 +69,6 @@ GelmanRubinConvergence
 GeyerAutocorLen
 IIDSampling
 IntegrationAlgorithm
-LinDVal
 LogDVal
 MCMCAlgorithm
 MCMCBurninStrategy
