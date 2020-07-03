@@ -19,8 +19,8 @@ ConstDensity(bounds::VarVolumeBounds, ::typeof(normalize)) =
 Base.convert(::Type{ConstDensity}, bounds::VarVolumeBounds) = ConstDensity(bounds, one)
 Base.convert(::Type{AbstractDensity}, bounds::VarVolumeBounds) = convert(ConstDensity, bounds)
 
-Base.convert(::Type{ConstDensity}, value::AbstractDensityValue) = ConstDensity(missing, logvalof(value))
-Base.convert(::Type{AbstractDensity}, value::AbstractDensityValue) = convert(ConstDensity, value)
+Base.convert(::Type{ConstDensity}, value::LogDVal) = ConstDensity(missing, logvalof(value))
+Base.convert(::Type{AbstractDensity}, value::LogDVal) = convert(ConstDensity, value)
 
 
 @inline logvalof_unchecked(density::ConstDensity, v::Any) = density.log_value
