@@ -1,14 +1,11 @@
 # This file is a part of BAT.jl, licensed under the MIT License (MIT).
 
-using BAT
-using LinearAlgebra: diag
-using Statistics
-using StatsBase
 using Test
 
 Test.@testset "distributions" begin
     include("test_distribution_functions.jl")
-    include("test_bat_sampler.jl")
+    include("test_standard_uniform.jl")
+    include("test_standard_normal.jl")
 
     Test.@testset "multimodal cauchy" begin
         @test_throws ArgumentError BAT.MultimodalCauchy(n=1)

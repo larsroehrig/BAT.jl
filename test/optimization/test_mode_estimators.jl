@@ -20,22 +20,22 @@ using LinearAlgebra, Distributions, StatsBase, ValueShapes
     samples = @inferred(bat_sample(prior, 10^5)).result
 
 
-    function test_findmode(posterior, algorithm, initial_mode, rtol)
-        res = @inferred(bat_findmode(posterior, MaxDensityNelderMead(), initial_mode = initial_mode))
+    function test_findmode(posterior, algorithm, rtol)
+        res = @inferred(bat_findmode(posterior, algorithm))
         @test keys(stripscalar(res.result)) == keys(true_mode)
         @test isapprox(unshaped(res.result), true_mode_flat, rtol = rtol)
     end
 
-    function test_findmode_noinferred(posterior, algorithm, initial_mode, rtol)
-        res = (bat_findmode(posterior, MaxDensityNelderMead(), initial_mode = initial_mode))
+    function test_findmode_noinferred(posterior, algorithm, rtol)
+        res = (bat_findmode(posterior, algorithm))
         @test keys(stripscalar(res.result)) == keys(true_mode)
         @test isapprox(unshaped(res.result), true_mode_flat, rtol = rtol)
     end
 
 
     @testset "ModeAsDefined" begin
-        @test @inferred(bat_findmode(prior, ModeAsDefined())).result == true_mode_flat # ToDo: Should return shaped mode
-        @test @inferred(bat_findmode(BAT.DistributionDensity(prior), ModeAsDefined())).result == true_mode_flat
+        @test @inferred(bat_findmode(prior, ModeAsDefined())).result[] == true_mode
+        @test @inferred(bat_findmode(BAT.DistributionDensity(prior), ModeAsDefined())).result[] == true_mode
     end
 
 
@@ -48,16 +48,12 @@ using LinearAlgebra, Distributions, StatsBase, ValueShapes
 
 
     @testset "MaxDensityNelderMead" begin
-        test_findmode(posterior,  MaxDensityNelderMead(), missing, 0.01)
-        test_findmode(posterior,  MaxDensityNelderMead(), rand(prior), 0.01)
-        test_findmode(posterior,  MaxDensityNelderMead(), samples, 0.01)
+        test_findmode(posterior,  MaxDensityNelderMead(), 0.01)
     end
 
 
     @testset "MaxDensityLBFGS" begin
         # Result Optim.maximize with LBFGS is not type-stable:
-        test_findmode_noinferred(posterior,  MaxDensityLBFGS(), missing, 0.01)
-        test_findmode_noinferred(posterior,  MaxDensityLBFGS(), rand(prior), 0.01)
-        test_findmode_noinferred(posterior,  MaxDensityLBFGS(), samples, 0.01)
+        test_findmode_noinferred(posterior,  MaxDensityLBFGS(), 0.01)
     end
 end
